@@ -96,23 +96,28 @@ export class BoardComponent {
   /**================== */
 
   dropped(event) {
-    console.log(event);
-    console.log(event.source.element.nativeElement.style.transform);
-
+    // console.log(event);
+    // console.log(event.source.element.nativeElement.style.transform);
+    // // let newWidget = Widget.getNewNote();
+    // const translation3d = event.source.element.nativeElement.style.transform;
     // let newWidget = Widget.getNewNote();
-    const translation3d = event.source.element.nativeElement.style.transform;
-    let newWidget = Widget.getNewNote();
-    newWidget.dragPosition = event.distance;
-    newWidget.dragTranslation = translation3d;
-
-    this.widgetsOnDesktop.push(newWidget);
-    event.source.element.nativeElement.style.transform = "translate3d(0,0,0)";
+    // newWidget.dragPosition = event.distance;
+    // newWidget.dragTranslation = translation3d;
+    // this.widgetsOnDesktop.push(newWidget);
+    // event.source.element.nativeElement.style.transform = "translate3d(0,0,0)";
   }
+
+  /**========INTERACT JS========== */
 
   initDraggable() {
     const position = { x: 0, y: 0 };
 
     interact(".draggable").draggable({
+      modifiers: [
+        interact.modifiers.restrictRect({
+          restriction: ".wid-deskt"
+        })
+      ],
       listeners: {
         start(event) {
           console.log(event.type, event.target);
@@ -130,16 +135,47 @@ export class BoardComponent {
   }
 
   initDropzone() {
-    interact(".wid-desktop")
-      .dropzone({
-        ondrop: function(event) {
-         / alert(
-            event.relatedTarget.id + " was dropped into " + event.target.id
-          );
-        }
-      })
-      .on("dropactivate", function(event) {
-        event.target.classList.add("drop-activated");
-      });
+    // enable draggables to be dropped into this
+    interact(".wid-desktop").dropzone({
+      // only accept elements matching this CSS selector
+      accept: ".draggable",
+      // Require a 75% element overlap for a drop to be possible
+      overlap: "center",
+
+      // listen for drop related events:
+
+      ondropactivate: function(event) {
+        console.log("ondropactivate");
+        // add active dropzone feedback
+        event.target.classList.add("drop-active");
+      },
+      ondragenter: function(event) {
+        console.log("ondragenter");
+        var draggableElement = event.relatedTarget;
+        var dropzoneElement = event.target;
+
+        // feedback the possibility of a drop
+        dropzoneElement.classList.add("drop-target");
+        draggableElement.classList.add("can-drop");
+        // draggableElement.textContent = "Dragged in";
+      },
+      ondragleave: function(event) {
+        console.log("ondragleave");
+        // remove the drop feedback style
+        event.target.classList.remove("drop-target");
+        event.relatedTarget.classList.remove("can-drop");
+        // event.relatedTarget.textContent = "Dragged out";
+      },
+      ondrop: function(event) {
+        console.log("ondrop");
+        // event.relatedTarget.textContent = "Dropped";
+      },
+      ondropdeactivate: function(event) {
+        //console.log("ondropdeactivate", event);
+        // remove active dropzone feedback
+        event.target.classList.remove("drop-active");
+        event.target.classList.remove("drop-target");
+      }
+    });
   }
 }
