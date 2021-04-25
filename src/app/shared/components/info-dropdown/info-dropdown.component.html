@@ -1,0 +1,7 @@
+<button [matMenuTriggerFor]="infomenu" type="button" mat-ripple class="btn-info-dropdown">
+    <mat-icon class="info-icon">info_outline</mat-icon>
+</button>
+
+<mat-menu #infomenu="matMenu" class="info-dropdown pl-2 pr-2">
+    <div [innerHTML]="info"></div>
+</mat-menu>

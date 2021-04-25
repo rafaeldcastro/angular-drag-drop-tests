@@ -1,0 +1,5 @@
+<div [ngSwitch]="widget.type" class="wid-container">
+
+    <widget-note *ngSwitchCase="widgetTypes.NOTE" [widget]="widget"></widget-note>
+
+</div>

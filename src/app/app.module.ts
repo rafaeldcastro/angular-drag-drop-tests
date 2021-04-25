@@ -1,21 +1,32 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { DragDropModule } from "@angular/cdk/drag-drop";
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+/**MODULES */
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from '@core/core.module';
+
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt, 'pt');
+
+/**COMPONENTS */
+import { AppComponent } from './app.component';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    LoadingComponent
+  ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    DragDropModule
+    CoreModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [
+    { provide: LOCALE_ID, useValue: "pt" }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

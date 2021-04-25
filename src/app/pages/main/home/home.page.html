@@ -1,0 +1,156 @@
+<!-- <mat-sidenav-container style="background: none;"> -->
+    <!-- Sidenav -->
+    <!-- <mat-sidenav #sidenav 
+        [mode]="isBiggerScreen() ? 'over' : 'side'" 
+        [(opened)]="openedSidenav" 
+        [fixedInViewport]="true" 
+        [fixedTopGap]>
+        <mat-nav-list>
+            <a mat-list-item>
+                <mat-icon>dashboard</mat-icon> Dashboard
+            </a>
+            <a mat-list-item>
+                <mat-icon>person</mat-icon> User Profile
+            </a>
+            <a mat-list-item>
+                <mat-icon>content_paste</mat-icon> Table List
+            </a>
+            <a mat-list-item>
+                <mat-icon>library_books</mat-icon> Typography
+            </a>
+            <a mat-list-item>
+                <mat-icon>location_on</mat-icon> Maps
+            </a>
+            <a mat-list-item>
+                <mat-icon>calendar_today</mat-icon> Calendar
+            </a>
+        </mat-nav-list>
+    </mat-sidenav> -->
+
+    <!-- Main content -->
+    <!-- <mat-sidenav-content> -->
+
+        <!-- Toolbar -->
+        <mat-toolbar color="primary" class="header">
+
+            <!-- <button mat-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button> -->
+
+            <div>Material Theme</div>
+
+        </mat-toolbar>
+
+        <main class="main-wrapper">
+
+            <!-- <section class="container-fluid p-0"> -->
+    
+                <!-- <mat-menu #widgetOptionsMenu="matMenu" class="widget-options-menu">
+                    <button mat-menu-item>
+                        <i class="fs-2 bi-card-text"></i>
+                        <span>Notes</span>
+                    </button>
+    
+                    <button mat-menu-item>
+                        <i class="fs-2 bi-link-45deg"></i>
+                        <span>Link</span>
+                    </button>
+    
+                    <button mat-menu-item>
+                        <i class="fs-2 bi-distribute-horizontal"></i>
+                        <span>Column</span>
+                    </button>
+    
+                    <button mat-menu-item>
+                        <i class="fs-2 bi-card-image"></i>
+                        <span>Image</span>
+                    </button>
+    
+                    <button mat-menu-item>
+                        <i class="fs-2 bi-card-checklist"></i>
+                        <span>Check List</span>
+                    </button>
+                </mat-menu>
+    
+                <button class="btn-widget" mat-fab color="primary" aria-label="Floating action button"
+                    [matMenuTriggerFor]="widgetOptionsMenu">
+                    <mat-icon>add</mat-icon>
+                </button> -->
+                
+    
+                <widget-board></widget-board>
+    
+            <!-- </section> -->
+
+        </main>
+
+
+        <!-- ============== -->
+        <!-- ============== -->
+        <!-- ============== -->
+
+
+        <!-- 
+                <div class="dragdrop-area" 
+            cdkDropList 
+            [cdkDropListData]="widgets" 
+            (cdkDropListDropped)="drop($event)">
+
+            <div class="dragdrop-area" cdkDrop>
+
+                <div 
+                    *ngFor="let widget of widgets; let widgetIndex = index;"
+                    class="widget-note dragable dragable{{widgetIndex}}"
+                    holdable (onHold)="enableDrag(widgetIndex)"
+                    cdkDrag
+                    cdkDragBoundary=".dragdrop-area"
+                    [cdkDragDisabled]="widget.isDragDisabled"
+                    [cdkDragData]="widget" 
+                    [cdkDragFreeDragPosition]="widget.dragPosition"
+                    (cdkDragStarted)="dragStarted($event)"
+                    (cdkDragEnded)="dragEnded($event, widgetIndex)">
+
+                     <div class="note-placeholder" *ngIf="!widget.description">Start typing...</div>
+
+
+                    <div contenteditable="true" class="note-content" 
+                        [innerHTML]="widget.content"
+                        placeholder="Start typing..."></div>
+                </div>
+
+                
+                    <button mat-flat-button class="dragdrop-board btn-new-board"
+                    (click)="openModalNewBoard()">
+                    <mat-icon class="text-secondary mb-3">add_circle</mat-icon>
+                    <h2 class="text-secondary">Novo Board</h2>
+                </button> 
+            
+
+                
+                    <div *ngFor="let board of boards;"
+                    cdkDrag
+                    cdkDragBoundary=".dragdrop-area"
+                    [cdkDragData]="board" 
+                    (cdkDragEnded)="dragEnded($event)"
+                    [cdkDragFreeDragPosition]="board.dragPosition"
+                    class="card dragdrop-board dragdrop-dragable">
+                    
+                    <small>Título</small>
+                    <h3 class="hide-overflow-text">{{board.title}}</h3>
+
+                    <p class="" [innerHTML]="board.description | shorten: 80: '...'"></p>
+
+                </div> 
+                
+            </div>
+        -->
+
+
+
+
+    <!-- </mat-sidenav-content> -->
+<!-- </mat-sidenav-container> -->
+
+<!-- <modal-generic #genericModal>
+    <form-board-info (onConfirm)="onConfirmBoard($event)"></form-board-info>
+</modal-generic> -->

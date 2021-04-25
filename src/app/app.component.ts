@@ -1,86 +1,32 @@
-import { Component, OnInit } from "@angular/core";
-import interact from "interactjs";
+import { Component } from '@angular/core';
+
+/**MODELS */
+import { Subscription } from 'rxjs';
+
+/**SERVICES */
+import { EventEmitterService } from '@core/services/emitter/event-emitter.service';
+import { LOADING_NOTIFICATIONS } from './shared/components/loading/notifications/loading.notifications';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  template: `
+  <ngx-loading-bar [includeSpinner]="false" [color]=loadingBarColor></ngx-loading-bar>
+  <router-outlet></router-outlet>
+  <loading *ngIf="isLoading" [isLoading]="isLoading"></loading>
+  `
 })
-export class AppComponent implements OnInit {
-  constructor() {}
+export class AppComponent {
 
-  ngOnInit() {
-    this.initDraggable();
-    this.initDropzone();
+  private subscriptions = new Subscription(); 
+  loadingBarColor: string = '#d98622';
+  isLoading: boolean;
+
+  constructor(){
+    this.initLoadingSubscribe();
   }
 
-  initDraggable() {
-    const position = { x: 0, y: 0 };
-
-    interact(".draggable").draggable({
-      listeners: {
-        start(event) {
-          console.log(event.type, event.target);
-        },
-        move(event) {
-          position.x += event.dx;
-          position.y += event.dy;
-
-          event.target.style.transform = `translate(${position.x}px, ${
-            position.y
-          }px)`;
-        }
-      }
-    });
-  }
-
-  initDropzone() {
-    // enable draggables to be dropped into this
-    interact(".dropzone").dropzone({
-      modifiers: [
-        interact.modifiers.restrictRect({
-          restriction: "parent"
-        })
-      ],
-      // only accept elements matching this CSS selector
-      accept: ".draggable",
-      // Require a 75% element overlap for a drop to be possible
-      overlap: 0.75,
-
-      // listen for drop related events:
-
-      ondropactivate: function(event) {
-        //console.log("ondropactivate", event);
-        // add active dropzone feedback
-        event.target.classList.add("drop-active");
-      },
-      ondragenter: function(event) {
-        //console.log("ondragenter", event);
-        var draggableElement = event.relatedTarget;
-        var dropzoneElement = event.target;
-
-        // feedback the possibility of a drop
-        dropzoneElement.classList.add("drop-target");
-        draggableElement.classList.add("can-drop");
-        draggableElement.textContent = "Dragged in";
-      },
-      ondragleave: function(event) {
-        //console.log("ondragleave", event);
-        // remove the drop feedback style
-        event.target.classList.remove("drop-target");
-        event.relatedTarget.classList.remove("can-drop");
-        event.relatedTarget.textContent = "Dragged out";
-      },
-      ondrop: function(event) {
-        //console.log("ondrop", event);
-        event.relatedTarget.textContent = "Dropped";
-      },
-      ondropdeactivate: function(event) {
-        //console.log("ondropdeactivate", event);
-        // remove active dropzone feedback
-        event.target.classList.remove("drop-active");
-        event.target.classList.remove("drop-target");
-      }
-    });
+  private initLoadingSubscribe() {
+    this.subscriptions.add( EventEmitterService.get( LOADING_NOTIFICATIONS.IS_LOADING )
+      .subscribe(isLoading => this.isLoading = isLoading ) );
   }
 }

@@ -1,0 +1,100 @@
+mat-toolbar {
+  height: 56px;
+  position: relative;
+  z-index: 10;
+}
+
+mat-sidenav-container {
+  height: 100%;
+
+  ::ng-deep {
+    .mat-drawer-backdrop {
+      background: transparent;
+    }
+  }
+}
+
+main{
+  height: calc(100% - 56px);
+}
+
+mat-sidenav {
+  width: 250px;
+
+  mat-nav-list {
+    &.mat-list-base {
+      padding-top: 0;
+    }
+
+    mat-icon {
+      margin-right: 15px;
+    }
+  }
+}
+
+.dragdrop-area {
+  align-content: flex-start;
+  border: dotted #ccc 2px;
+  background: #f1f1f1;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  max-width: 100%;
+  width: 100%;
+
+  .btn-new-board {
+    mat-icon {
+      --size: 50px;
+
+      font-size: var(--size) !important;
+      height: var(--size) !important;
+      width: var(--size) !important;
+    }
+  }
+
+  .dragable {
+
+    box-shadow: 0 1px 2px 0 rgba(50, 60, 80, 0.2);
+    transition: box-shadow 350ms cubic-bezier(0, 0, 0.2, 1);
+    z-index: 10;
+
+    &.draging {
+      border: 2px solid #444;
+      box-shadow: 0 10px 10px -3px rgb(0 0 0 / 3%),
+        0 8px 15px 1px rgb(0 0 0 / 10%), 0 3px 20px 2px rgb(0 0 0 / 10%) !important;
+      cursor: grabbing;
+    }
+  }
+}
+
+.btn-widget {
+  bottom: 1rem;
+  position: fixed;
+  right: 1rem;
+}
+
+/**===================*/
+
+// .widget-note {
+//   background: #fff;
+//   height: auto;
+//   padding: 1.1rem 1.3rem;
+//   position: relative;
+//   width: 260px;
+// }
+
+// .note-placeholder {
+//   color: #999;
+//   position: absolute;
+//   z-index: 1;
+// }
+
+// .note-content {
+//   position: relative;
+//   z-index: 2;
+// }
+// [contenteditable=true]:empty:before{
+//   content: attr(placeholder);
+//   pointer-events: none;
+//   display: block; /* For Firefox */
+// }

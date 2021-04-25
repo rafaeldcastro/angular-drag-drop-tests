@@ -1,0 +1,74 @@
+/* You can add global styles to this file, and also import other style files */
+*:active,
+*:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+strong,
+b {
+  font-weight: 500 !important;
+}
+
+form {
+  width: 100%;
+}
+
+.mat-button {
+  min-width: 40px !important;
+  padding: 0 !important;
+}
+
+.mat-form-field {
+  mat-icon {
+    margin-right: 5px;
+  }
+
+  .mat-form-field-infix {
+    top: -4px;
+  }
+}
+
+/* =======================
+    WIDGET OPTIONS - MAT-MENU
+=======================*/
+
+.widget-options-menu {
+  margin: 1rem;
+
+  .mat-menu-content {
+    button.mat-menu-item {
+      display: flex !important;
+    }
+
+    i {
+      margin-right: 15px;
+    }
+  }
+}
+
+
+/* =======================
+    HELPERS 
+=======================*/
+
+.hide-overflow-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.d-flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+/* ======== Angular material custom themes ======== */ 
+$onboard-primary: mat-palette($mat-deep-purple);
+$onboard-accent: mat-palette($mat-pink, 100, 500, A100);
+$onboard-warn: mat-palette($mat-lime);
+
+$onboard-theme: mat-light-theme($onboard-primary, $onboard-accent, $onboard-warn);
+// $onboard-theme: mat-dark-theme($onboard-primary, $onboard-accent);
+
+@include angular-material-theme($onboard-theme);

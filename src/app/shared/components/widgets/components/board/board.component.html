@@ -1,0 +1,80 @@
+<div class="wid-drawer">
+
+    <div class="wid-drawer-segment">
+
+        <div class="wid-drawer-button placeholder-button d-flex-center">
+            <i class="bi-card-text"></i>
+            <label>Note</label>
+        </div>
+    
+        <div class="wid-drawer-button d-flex-center"
+            cdkDrag
+            (cdkDragEnded)="dropped($event)"
+            cdkDragBoundary=".wid-board">
+            <i class="bi-card-text"></i>
+            <label>Note</label>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="wid-desktop" 
+    cdkDrop>
+
+    <widget-container 
+        *ngFor="let widget of widgetsOnDesktop; let widgetIndex = index;" 
+        cdkDrag
+        [widgetIndex]="widgetIndex"
+        [widget]="widget"
+        [cdkDragData]="widget"
+        [cdkDragFreeDragPosition]="widget.dragPosition"
+        cdkDragBoundary=".wid-board"></widget-container>
+</div>
+
+
+<!-- <div class="wid-drawer" 
+    cdkDropList 
+    #widgetDrawer="cdkDropList"
+    cdkDropListSortingDisabled
+    [cdkDropListData]="widgetsDrawer" 
+    [cdkDropListConnectedTo]="[widgetDesktop]">
+
+    <div class="wid-drawer-segment">
+
+        <div class="wid-drawer-button placeholder-button d-flex-center">
+            <i class="bi-card-text"></i>
+            <label>Note</label>
+        </div>
+    
+        <div class="wid-drawer-button d-flex-center"
+            cdkDrag
+            (cdkDragEnded)="dragFromDrawerEnded($event)">
+            <i class="bi-card-text"></i>
+            <label>Note</label>
+            <widget-container *cdkDragPreview [widget]="widgetsDrawer[0]"></widget-container>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="wid-desktop"
+    cdkDropList
+    #widgetDesktop="cdkDropList"
+    [cdkDropListData]="widgetsOnDesktop"
+    (cdkDropListDropped)="copyFromList($event)">
+
+    <widget-container 
+        *ngFor="let widget of widgetsOnDesktop; let widgetIndex = index;" 
+        cdkDrag
+        [widgetIndex]="widgetIndex"
+        [widget]="widget"
+        [cdkDragData]="widget"
+        [ngStyle]="{
+            'transform': 'translate3d('+widget.dragPosition.x+'px,'+widget.dragPosition.y+'px, 0)'
+        }"
+        (cdkDragEnded)="dragEnded($event, widgetIndex)"
+        cdkDragBoundary=".wid-desktop"></widget-container> 
+    </div>
+-->

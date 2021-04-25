@@ -1,0 +1,7 @@
+<!-- <div class="note-icon"><i class="bi-card-text"></i></div> -->
+<div class="note-body">
+    <div class="note-title" *ngIf="widget.title">{{widget.title}}</div>
+    <div class="note-content" 
+        placeholder="Start typing..."
+        [(ngModel)]="widget.content" contenteditable="true"></div>
+</div>
