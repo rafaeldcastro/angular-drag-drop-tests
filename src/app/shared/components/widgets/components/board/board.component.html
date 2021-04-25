@@ -1,4 +1,4 @@
-<!--
+
   <div class="wid-drawer">
 
     <div class="wid-drawer-segment">
@@ -8,10 +8,7 @@
             <label>Note</label>
         </div>
     
-        <div class="wid-drawer-button d-flex-center"
-            cdkDrag
-            (cdkDragEnded)="dropped($event)"
-            cdkDragBoundary=".wid-board">
+        <div class="wid-drawer-button draggable  d-flex-center">
             <i class="bi-card-text"></i>
             <label>Note</label>
         </div>
@@ -20,20 +17,18 @@
 
 </div>
 
-<div class="wid-desktop" 
-    cdkDrop>
+<div class="wid-desktop" >
 
-    <widget-container 
+    <!--<widget-container 
         *ngFor="let widget of widgetsOnDesktop; let widgetIndex = index;" 
         cdkDrag
         [widgetIndex]="widgetIndex"
         [widget]="widget"
         [cdkDragData]="widget"
         [cdkDragFreeDragPosition]="widget.dragPosition"
-        cdkDragBoundary=".wid-board"></widget-container>
+        cdkDragBoundary=".wid-board"></widget-container>-->
 </div>
 -->
-
 <!-- <div class="wid-drawer" 
     cdkDropList 
     #widgetDrawer="cdkDropList"

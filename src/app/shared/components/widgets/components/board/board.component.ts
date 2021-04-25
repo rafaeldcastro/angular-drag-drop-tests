@@ -4,6 +4,8 @@ import {
   moveItemInArray, copyArrayItem, transferArrayItem
 } from '@angular/cdk/drag-drop';
 
+import interact from 'interactjs';
+
 /**MODELS */
 import { Widget, WidgetType } from './../../models/widget.model';
 
@@ -23,6 +25,11 @@ export class BoardComponent {
     this.widgetsDrawer = [
       Widget.getNewNote()
     ];
+  }
+
+  ngOnInit(){
+    this.initDraggable();
+    this.initDropzone();
   }
 
   copyFromList(event: CdkDragDrop<any[]>) {
@@ -99,4 +106,42 @@ export class BoardComponent {
     this.widgetsOnDesktop.push( newWidget );
     event.source.element.nativeElement.style.transform = 'translate3d(0,0,0)';
   }  
+
+initDraggable(){
+
+  const position = { x: 0, y: 0 }
+
+interact('.draggable').draggable({
+  listeners: {
+    start (event) {
+      console.log(event.type, event.target)
+    },
+    move (event) {
+      position.x += event.dx
+      position.y += event.dy'
+
+      event.target.style.transform =
+        `translate(${position.x}px, ${position.y}px)`
+    },
+  }
+})
+
+}
+
+initDropzone(){
+interact('.wid-desktop')
+  .dropzone({
+    ondrop: function (event) {
+      alert(event.relatedTarget.id
+            + ' was dropped into '
+            + event.target.id)
+    }
+  })
+  .on('dropactivate', function (event) {
+    event.target.classList.add('drop-activated')
+  })
+
+
+
+}
 }
