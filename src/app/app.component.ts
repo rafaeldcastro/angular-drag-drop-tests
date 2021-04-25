@@ -1,32 +1,32 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 /**MODELS */
-import { Subscription } from 'rxjs';
+import { Subscription } from "rxjs";
 
 /**SERVICES */
-import { EventEmitterService } from '@core/services/emitter/event-emitter.service';
-import { LOADING_NOTIFICATIONS } from './shared/components/loading/notifications/loading.notifications';
+import { EventEmitterService } from "./_core/services/emitter/event-emitter.service";
+import { LOADING_NOTIFICATIONS } from "./shared/components/loading/notifications/loading.notifications";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   template: `
-  <ngx-loading-bar [includeSpinner]="false" [color]=loadingBarColor></ngx-loading-bar>
-  <router-outlet></router-outlet>
-  <loading *ngIf="isLoading" [isLoading]="isLoading"></loading>
+    <router-outlet></router-outlet>
+    <loading *ngIf="isLoading" [isLoading]="isLoading"></loading>
   `
 })
 export class AppComponent {
-
-  private subscriptions = new Subscription(); 
-  loadingBarColor: string = '#d98622';
+  private subscriptions = new Subscription();
   isLoading: boolean;
 
-  constructor(){
+  constructor() {
     this.initLoadingSubscribe();
   }
 
   private initLoadingSubscribe() {
-    this.subscriptions.add( EventEmitterService.get( LOADING_NOTIFICATIONS.IS_LOADING )
-      .subscribe(isLoading => this.isLoading = isLoading ) );
+    this.subscriptions.add(
+      EventEmitterService.get(LOADING_NOTIFICATIONS.IS_LOADING).subscribe(
+        isLoading => (this.isLoading = isLoading)
+      )
+    );
   }
 }

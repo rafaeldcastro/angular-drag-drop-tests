@@ -1,30 +1,36 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, OnInit, ViewChild, HostListener } from "@angular/core";
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragEnd,
+  CdkDragStart,
+  moveItemInArray,
+  transferArrayItem
+} from "@angular/cdk/drag-drop";
 
 /**COMPONENTS */
-import { ModalGenericComponent } from '@shared/components/modals/modal-generic/modal-generic.component';
+import { ModalGenericComponent } from "../../../shared/components/modals/modal-generic/modal-generic.component";
 
 /**MODELS */
-import { Widget } from '@shared/components/widgets/models/widget.model';
+import { Widget } from "../../../shared/components/widgets/models/widget.model";
 
 /**SERVICES */
-import { UtilsService } from '@shared/services/util.service';
-import { Loading } from '@shared/components/loading/services/loading.service';
+import { UtilsService } from "../../../shared/services/util.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: "app-home",
+  templateUrl: "./home.page.html",
+  styleUrls: ["./home.page.scss"]
 })
 export class HomePage implements OnInit {
-
-  @ViewChild('genericModal', { static: true }) genericModal: ModalGenericComponent;
+  @ViewChild("genericModal", { static: true })
+  genericModal: ModalGenericComponent;
 
   widget: Widget = new Widget({
     type: 1,
-    content: '',
+    content: "",
     isDragDisabled: true
-  })
+  });
 
   widgets: Widget[] = [];
 
@@ -33,13 +39,11 @@ export class HomePage implements OnInit {
 
   constructor() {
     for (let i = 0; i < 8; i++) {
-      
-      this.widgets.push( UtilsService.cloneObject(this.widget ));
+      this.widgets.push(UtilsService.cloneObject(this.widget));
     }
   }
 
   ngOnInit() {
-
     // this.autoOpenSidenav();
   }
 
@@ -75,42 +79,49 @@ export class HomePage implements OnInit {
   // }
 
   drop(event: CdkDragDrop<any[]>) {
-
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
+      moveItemInArray(
         event.container.data,
         event.previousIndex,
-        event.currentIndex);
-    } 
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
   }
 
   onInputChange(event, widgetIndex) {
-    this.widgets[widgetIndex].content = UtilsService.convertToMarkup(event.target.innerHTML);
+    this.widgets[widgetIndex].content = UtilsService.convertToMarkup(
+      event.target.innerHTML
+    );
   }
 
   onPasteContent(event, widgetIndex) {
     event.preventDefault();
     const clipboardData = event.clipboardData;
-    const pastedText = clipboardData.getData('text');
+    const pastedText = clipboardData.getData("text");
     const sanitizedText = UtilsService.convertToMarkup(pastedText);
     this.widgets[widgetIndex].content = sanitizedText;
   }
 
-  enableDrag(widgetIndex){
+  enableDrag(widgetIndex) {
     // document.querySelector('.dragable'+widgetIndex).classList.add('draging');
     this.widgets[widgetIndex].isDragDisabled = false;
   }
 
   dragStarted(event: CdkDragStart<any>) {
     // console.log(event)
-    event.source.element.nativeElement.classList.add('draging');
+    event.source.element.nativeElement.classList.add("draging");
   }
 
   dragEnded(event: CdkDragEnd<any>, widgetIndex) {
     // console.log(event)
-    event.source.element.nativeElement.classList.remove('draging');
+    event.source.element.nativeElement.classList.remove("draging");
     this.widgets[widgetIndex].isDragDisabled = true;
   }
 
@@ -119,9 +130,7 @@ export class HomePage implements OnInit {
   }
 
   onConfirmBoard(widget: Widget) {
-
-    this.widgets.push(widget)
+    this.widgets.push(widget);
     this.genericModal.dismiss();
   }
-
 }
