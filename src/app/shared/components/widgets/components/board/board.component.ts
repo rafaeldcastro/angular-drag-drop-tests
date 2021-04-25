@@ -1,61 +1,62 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 import {
-  CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart,
-  moveItemInArray, copyArrayItem, transferArrayItem
-} from '@angular/cdk/drag-drop';
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragEnd,
+  CdkDragStart,
+  moveItemInArray,
+  copyArrayItem,
+  transferArrayItem
+} from "@angular/cdk/drag-drop";
 
-import interact from 'interactjs';
+import interact from "interactjs";
 
 /**MODELS */
-import { Widget, WidgetType } from './../../models/widget.model';
+import { Widget, WidgetType } from "./../../models/widget.model";
 
 @Component({
-  selector: 'widget-board',
-  templateUrl: 'board.component.html',
-  styleUrls: ['board.component.scss'],
-  host: { '[class.wid-board]': 'true' }
+  selector: "widget-board",
+  templateUrl: "board.component.html",
+  styleUrls: ["board.component.scss"],
+  host: { "[class.wid-board]": "true" }
 })
 export class BoardComponent {
-
   widgetsOnDesktop: Widget[] = [];
   widgetsDrawer: Widget[];
 
   constructor() {
-
-    this.widgetsDrawer = [
-      Widget.getNewNote()
-    ];
+    this.widgetsDrawer = [Widget.getNewNote()];
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.initDraggable();
     this.initDropzone();
   }
 
   copyFromList(event: CdkDragDrop<any[]>) {
-    console.log(event)
+    console.log(event);
 
     if (event.previousContainer !== event.container) {
-
       copyArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex);
-        
-        // const translation3d = `translate3d(${event.distance.x + 75}px,${event.distance.y + 82}px,0`;
-        // this.widgetsOnDesktop[event.currentIndex].dragTranslation = translation3d;
-        this.widgetsOnDesktop[event.currentIndex].dragPosition = event.distance;
-        this.widgetsOnDesktop[event.currentIndex].title = event.currentIndex;
+        event.currentIndex
+      );
+
+      // const translation3d = `translate3d(${event.distance.x + 75}px,${event.distance.y + 82}px,0`;
+      // this.widgetsOnDesktop[event.currentIndex].dragTranslation = translation3d;
+      this.widgetsOnDesktop[event.currentIndex].dragPosition = event.distance;
+      this.widgetsOnDesktop[event.currentIndex].title = event.currentIndex;
     }
   }
 
   dragEnded(event: CdkDragEnd<any>, widgetIndex?) {
-    console.log(event)
+    console.log(event);
 
     this.widgetsOnDesktop[widgetIndex].dragPosition = event.distance;
     // const positions = event.source.element.nativeElement
-    // this.widgetsOnDesktop[widgetIndex].dragPosition = 
+    // this.widgetsOnDesktop[widgetIndex].dragPosition =
   }
 
   dragFromDrawerEnded(event: CdkDragEnd<any>, widgetIndex?) {
@@ -66,82 +67,79 @@ export class BoardComponent {
   }
 
   onDesktopDragStarted(event: CdkDragStart<any>, widgetIndex) {
-    event.source.element.nativeElement.style.transform = this.widgetsOnDesktop[widgetIndex].dragTranslation;
+    event.source.element.nativeElement.style.transform = this.widgetsOnDesktop[
+      widgetIndex
+    ].dragTranslation;
   }
 
   onDesktopDragEnd(event: CdkDragEnd<any>, widgetIndex) {
-    console.log(event)
-    const translation3d = `translate3d(${event.distance.x}px,${event.distance.y}px,0`;
+    console.log(event);
+    const translation3d = `translate3d(${event.distance.x}px,${
+      event.distance.y
+    }px,0`;
     this.widgetsOnDesktop[widgetIndex].dragTranslation = translation3d;
   }
 
   drop(event: CdkDragDrop<any[]>) {
-  //   console.log(event)
-  //   if (event.previousContainer === event.container) {
-
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-
-  //   } else {
-
-  //     transferArrayItem(
-  //       event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex);
-  //   }
+    //   console.log(event)
+    //   if (event.previousContainer === event.container) {
+    //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    //   } else {
+    //     transferArrayItem(
+    //       event.previousContainer.data,
+    //       event.container.data,
+    //       event.previousIndex,
+    //       event.currentIndex);
+    //   }
   }
 
   /**================== */
 
-  dropped(event){
-    console.log(event)
+  dropped(event) {
+    console.log(event);
     console.log(event.source.element.nativeElement.style.transform);
-    
+
     // let newWidget = Widget.getNewNote();
     const translation3d = event.source.element.nativeElement.style.transform;
     let newWidget = Widget.getNewNote();
     newWidget.dragPosition = event.distance;
     newWidget.dragTranslation = translation3d;
 
-    this.widgetsOnDesktop.push( newWidget );
-    event.source.element.nativeElement.style.transform = 'translate3d(0,0,0)';
-  }  
-
-initDraggable(){
-
-  const position = { x: 0, y: 0 }
-
-interact('.draggable').draggable({
-  listeners: {
-    start (event) {
-      console.log(event.type, event.target)
-    },
-    move (event) {
-      position.x += event.dx
-      position.y += event.dy'
-
-      event.target.style.transform =
-        `translate(${position.x}px, ${position.y}px)`
-    },
+    this.widgetsOnDesktop.push(newWidget);
+    event.source.element.nativeElement.style.transform = "translate3d(0,0,0)";
   }
-})
 
-}
+  initDraggable() {
+    const position = { x: 0, y: 0 };
 
-initDropzone(){
-interact('.wid-desktop')
-  .dropzone({
-    ondrop: function (event) {
-      alert(event.relatedTarget.id
-            + ' was dropped into '
-            + event.target.id)
-    }
-  })
-  .on('dropactivate', function (event) {
-    event.target.classList.add('drop-activated')
-  })
+    interact(".draggable").draggable({
+      listeners: {
+        start(event) {
+          console.log(event.type, event.target);
+        },
+        move(event) {
+          position.x += event.dx;
+          position.y += event.dy;
 
+          event.target.style.transform = `translate(${position.x}px, ${
+            position.y
+          }px)`;
+        }
+      }
+    });
+  }
 
-
-}
+  initDropzone() {
+    interact(".wid-desktop")
+      .dropzone({
+        ondrop: function(event) {
+         / alert(
+            event.relatedTarget.id + " was dropped into " + event.target.id
+          );
+        }
+      })
+      .on("dropactivate", function(event) {
+        event.target.classList.add("drop-activated");
+      });
+  }
 }
