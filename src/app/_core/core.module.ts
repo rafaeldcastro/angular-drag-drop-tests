@@ -3,8 +3,7 @@ import { CommonModule } from "@angular/common";
 import { APP_CONSTANTS } from "./constants/app.constants";
 
 /**MODULES */
-import { Drivers } from "@ionic/storage";
-import { IonicStorageModule } from "@ionic/storage-angular";
+import
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -13,12 +12,8 @@ import { HttpClientModule } from "@angular/common/http";
   imports: [
     CommonModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    IonicStorageModule.forRoot({
-      name: `__${APP_CONSTANTS.APP_PREFIX}`,
-      driverOrder: [Drivers.IndexedDB]
-    })
+    BrowserAnimationsModule
   ],
-  exports: [HttpClientModule, BrowserAnimationsModule, IonicStorageModule]
+  exports: [HttpClientModule, BrowserAnimationsModule]
 })
 export class CoreModule {}
