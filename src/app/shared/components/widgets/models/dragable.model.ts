@@ -1,4 +1,4 @@
-import { BaseModel } from '@core/models/base.model';
+import { BaseModel } from '../../../../_core/models/base.model';
 
 export class Dragable extends BaseModel{
 

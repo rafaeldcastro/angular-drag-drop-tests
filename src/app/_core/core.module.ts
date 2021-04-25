@@ -3,7 +3,6 @@ import { CommonModule } from "@angular/common";
 import { APP_CONSTANTS } from "./constants/app.constants";
 
 /**MODULES */
-import
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
 

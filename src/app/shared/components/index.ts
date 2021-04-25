@@ -1,1 +1,1 @@
-export const components: any[] = [RibbonComponent, InfoDropdownComponent];
+export const components: any[] = [];
