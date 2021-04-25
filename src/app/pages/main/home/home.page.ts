@@ -9,7 +9,6 @@ import {
 } from "@angular/cdk/drag-drop";
 
 /**COMPONENTS */
-import { ModalGenericComponent } from "../../../shared/components/modals/modal-generic/modal-generic.component";
 
 /**MODELS */
 import { Widget } from "../../../shared/components/widgets/models/widget.model";
