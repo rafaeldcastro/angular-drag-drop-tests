@@ -1,7 +1,6 @@
 :host {
   --draweWidth: 70px;
 
-  // background: #ddd url('/assets/images/dot-texture.png') repeat center / 10%;
   background: #ddd url("/assets/images/dot-texture3.png") repeat center / 8px
     8px;
   display: flex;
@@ -55,10 +54,11 @@
       display: none;
     }
 
-    .wid-drawer-button-dragging{
+    .wid-drawer-button-dragging {
       display: block;
-      
-      i,label{
+
+      i,
+      label {
         display: none;
       }
 
@@ -66,7 +66,6 @@
         display: block;
       }
     }
-    
   }
 }
 
