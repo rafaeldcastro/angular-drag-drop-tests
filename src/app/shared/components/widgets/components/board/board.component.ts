@@ -142,8 +142,9 @@ export class BoardComponent {
         end(event){
           event.target.classList.remove("wid-drawer-button-dragging");
           EventEmitterService.get("DRAG_END").emit(position);
+
           position.x = 0;
-          position.y = ;
+          position.y = 0;
           event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
         },
         move(event) {
