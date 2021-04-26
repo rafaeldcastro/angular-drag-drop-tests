@@ -1,64 +1,80 @@
+:host {
+  --draweWidth: 70px;
 
-:host{
-    --draweWidth: 70px;
-    
-    // background: #ddd url('/assets/images/dot-texture.png') repeat center / 10%;
-    background: #ddd url('/assets/images/dot-texture3.png') repeat center / 8px 8px;
-    display: flex;
-    height: 100%;
-    margin-left: var(--draweWidth);
-    width: calc(100% - var(--draweWidth));
+  // background: #ddd url('/assets/images/dot-texture.png') repeat center / 10%;
+  background: #ddd url("/assets/images/dot-texture3.png") repeat center / 8px
+    8px;
+  display: flex;
+  height: 100%;
+  margin-left: var(--draweWidth);
+  width: calc(100% - var(--draweWidth));
 }
 
-.wid-drawer{
-    margin-left: calc(-1 * var(--draweWidth));
-    align-items: center;
-    background: beige;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-width: var(--draweWidth);
-    width: var(--draweWidth);
+.wid-drawer {
+  margin-left: calc(-1 * var(--draweWidth));
+  align-items: center;
+  background: beige;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: var(--draweWidth);
+  width: var(--draweWidth);
 
-    .wid-drawer-segment{
-        height: 60px;
-        position: relative;
-        width: 60px;
+  .wid-drawer-segment {
+    height: 60px;
+    position: relative;
+    width: 60px;
 
-        .wid-drawer-button{
-            flex-direction: column;
-            height: 100%;
-            position: relative;
-            width: 100%;
-            z-index: 10;
-    
-            i{
-                font-size: 30px;
-                display: block;
-            }
-            label{
-                font-size: 12px;
-                display: block;
-                text-transform: uppercase;
-            }
+    .wid-drawer-button {
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      width: 100%;
+      z-index: 10;
 
-            &.placeholder-button{
-                left: 0;
-                opacity: .6;
-                position: absolute;
-                z-index: 1;
-                top: 0;
-            }
-        }
+      i {
+        font-size: 30px;
+        display: block;
+      }
+      label {
+        font-size: 12px;
+        display: block;
+        text-transform: uppercase;
+      }
+
+      &.placeholder-button {
+        left: 0;
+        opacity: 0.6;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+      }
     }
 
-}
+    .wid-drawer-drag-placeholder {
+      display: none;
+    }
 
-.wid-desktop{
-    height: 100%;
-    width: 100%;
-
-    .cdk-drag-placeholder{
+    .wid-drawer-button-dragging{
+      display: block;
+      
+      i,label{
         display: none;
+      }
+
+      .wid-drawer-drag-placeholder {
+        display: block;
+      }
     }
+    
+  }
+}
+
+.wid-desktop {
+  height: 100%;
+  width: 100%;
+
+  .cdk-drag-placeholder {
+    display: none;
+  }
 }

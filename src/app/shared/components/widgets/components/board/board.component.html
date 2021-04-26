@@ -1,26 +1,35 @@
 <div class="wid-drawer">
   <div class="wid-drawer-segment">
+
+    <!-- DRAWER PLACEHOLDER -->
     <div class="wid-drawer-button placeholder-button d-flex-center">
       <i class="bi-card-text"></i>
       <label>Note</label>
     </div>
 
+    <!-- DRAGGABLE -->
     <div class="wid-drawer-button draggable  d-flex-center">
       <i class="bi-card-text"></i>
       <label>Note</label>
+
+    <!-- DRAG PLACEHOLDER -->
+    <widget-container 
+      class="wid-drawer-drag-placeholder animate__animated animate__fadeIn animate__faster"
+      [widget]="widgetsDrawer[0]"></widget-container>
+
     </div>
+
   </div>
 </div>
 
-<div class="wid-desktop">
-  <!--<widget-container 
-        *ngFor="let widget of widgetsOnDesktop; let widgetIndex = index;" 
-        cdkDrag
-        [widgetIndex]="widgetIndex"
-        [widget]="widget"
-        [cdkDragData]="widget"
-        [cdkDragFreeDragPosition]="widget.dragPosition"
-        cdkDragBoundary=".wid-board"></widget-container>-->
+<div class="wid-desktop" cdkDrop>
+
+  <widget-container 
+    cdkDrag
+    *ngFor="let widget of widgetsOnDesktop; let widgetIndex = index;" 
+    [widgetIndex]="widgetIndex"
+    [widget]="widget"
+    [ngStyle]="{'transform': widget.dragTranslation}"></widget-container>
 </div>
 
 <!-- <div class="wid-drawer" 

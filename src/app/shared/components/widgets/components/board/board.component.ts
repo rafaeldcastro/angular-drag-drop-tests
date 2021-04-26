@@ -13,6 +13,8 @@ import interact from "interactjs";
 
 /**MODELS */
 import { Widget, WidgetType } from "./../../models/widget.model";
+import { Subscription } from "rxjs";
+import { EventEmitterService } from "../../../../../_core/services/emitter/event-emitter.service";
 
 @Component({
   selector: "widget-board",
@@ -21,10 +23,17 @@ import { Widget, WidgetType } from "./../../models/widget.model";
   host: { "[class.wid-board]": "true" }
 })
 export class BoardComponent {
+
+  private subscriptions = new Subscription();
+
   widgetsOnDesktop: Widget[] = [];
   widgetsDrawer: Widget[];
 
   constructor() {
+    this.subscriptions.add( 
+      EventEmitterService.get("DRAG_END").subscribe(position => this.onDragEnd(position)) 
+    );
+
     this.widgetsDrawer = [Widget.getNewNote()];
   }
 
@@ -109,26 +118,39 @@ export class BoardComponent {
 
   /**========INTERACT JS========== */
 
+  onDragEnd(position){
+    const translation = `translate(${position.x}px, ${position.y}px)`;
+    const newWidget = Widget.getNewNote();
+    newWidget.dragTranslation = translation;
+    this.widgetsOnDesktop.push( newWidget );
+  }
+
   initDraggable() {
     const position = { x: 0, y: 0 };
 
     interact(".draggable").draggable({
       modifiers: [
         interact.modifiers.restrictRect({
-          restriction: ".wid-deskt"
+          restriction: ".wid-board"
         })
       ],
       listeners: {
         start(event) {
           console.log(event.type, event.target);
+          event.target.classList.add("wid-drawer-button-dragging");
+        },
+        end(event){
+          event.target.classList.remove("wid-drawer-button-dragging");
+          EventEmitterService.get("DRAG_END").emit(position);
+          position.x = 0;
+          position.y = ;
+          event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
         },
         move(event) {
           position.x += event.dx;
           position.y += event.dy;
 
-          event.target.style.transform = `translate(${position.x}px, ${
-            position.y
-          }px)`;
+          event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
         }
       }
     });
