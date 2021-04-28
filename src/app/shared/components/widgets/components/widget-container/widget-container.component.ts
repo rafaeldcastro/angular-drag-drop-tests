@@ -6,7 +6,10 @@ import { Widget, WidgetType } from './../../models/widget.model';
 @Component({
   selector: 'widget-container',
   templateUrl: 'widget-container.component.html',
-  styleUrls: ['widget-container.component.scss']
+  styleUrls: ['widget-container.component.scss'],
+  host: { 
+    'class': 'wid-container'
+  }
 })
 export class WidgetContainer implements OnInit{
 
@@ -17,7 +20,7 @@ export class WidgetContainer implements OnInit{
   constructor() { }
   
   ngOnInit(){
-    this.widget.index = this.widgetIndex ? this.widgetIndex : -1;
+    
   }
 
   getWidgetIndex(): Number{

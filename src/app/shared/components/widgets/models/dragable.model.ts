@@ -1,14 +1,13 @@
-import { BaseModel } from '../../../../_core/models/base.model';
+import { BaseModel } from "../../../../_core/models/base.model";
 
-export class Dragable extends BaseModel{
+export class Dragable extends BaseModel {
+  isDragDisabled: boolean;
+  dragTranslation: string;
+  dragPosition: { x: number; y: number };
+  dimension: { height: number; width: number };
 
-    isDragDisabled: boolean;
-    dragTranslation: string;
-    dragPosition: {x: number, y: number};
-    dimension: {height: number, width: number};
-
-    constructor(data: Object = {}) {
-        super();
-        this.set(data);
-    }
+  constructor(data: Object = {}) {
+    super();
+    this.set(data);
+  }
 }

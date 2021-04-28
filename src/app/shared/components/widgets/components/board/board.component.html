@@ -1,79 +1,72 @@
-<!-- <div class="wid-drawer">
-  <div class="wid-drawer-segment"> -->
+<div class="wid-drawer">
 
-<!-- DRAWER PLACEHOLDER -->
-<!-- <div class="wid-drawer-button placeholder-button d-flex-center">
-      <i class="bi-card-text"></i>
-      <label>Note</label>
-    </div> -->
+    <div *ngFor="let widget of widgetsOnDrawer; let widgetIndex = index;"  
+        class="wid-drawer-segment">
 
-<!-- DRAGGABLE -->
-<!-- <div class="wid-drawer-button draggable  d-flex-center">
-      <i class="bi-card-text"></i>
-      <label>Note</label> -->
-
-<!-- DRAG PLACEHOLDER -->
-<!-- <widget-container 
-      class="wid-drawer-drag-placeholder animate__animated animate__fadeIn animate__faster"
-      [widget]="widgetsDrawer[0]"></widget-container>
-
-    </div>
-
-  </div>
-</div> -->
-
-<!-- <div class="wid-desktop" cdkDrop>
-
-  <widget-container 
-    cdkDrag
-    *ngFor="let widget of widgetsOnDesktop; let widgetIndex = index;" 
-    [widgetIndex]="widgetIndex"
-    [widget]="widget"
-    [ngStyle]="{'transform': widget.dragTranslation}"></widget-container>
-</div> -->
-
-<!-- <div class="wid-drawer" 
-    cdkDropList 
-    #widgetDrawer="cdkDropList"
-    cdkDropListSortingDisabled
-    [cdkDropListData]="widgetsDrawer" 
-    [cdkDropListConnectedTo]="[widgetDesktop]">
-
-    <div class="wid-drawer-segment">
-
+        <!-- PLACEHOLDER WIDGET -->
         <div class="wid-drawer-button placeholder-button d-flex-center">
-            <i class="bi-card-text"></i>
-            <label>Note</label>
+            
+            <i [class]="widget.icon"></i>
+
+            <label>
+                <span *ngIf="widget.type == widgetTypes.NOTE">Note</span>
+                <span *ngIf="widget.type == widgetTypes.COLUMN">Column</span>
+            </label>
+            
         </div>
-    
-        <div class="wid-drawer-button d-flex-center"
+        
+        <!-- WIDGET TO DRAG -->
+        <div id="widDrawerItem{{widgetIndex}}" 
+            class="wid-drawer-button d-flex-center"
             cdkDrag
-            (cdkDragEnded)="dragFromDrawerEnded($event)">
-            <i class="bi-card-text"></i>
-            <label>Note</label>
-            <widget-container *cdkDragPreview [widget]="widgetsDrawer[0]"></widget-container>
+            (cdkDragStarted)="drawerDragStarted($event, widgetIndex)"
+            (cdkDragReleased)="drawerDragReleased($event, widgetIndex)"
+            (cdkDragEnded)="drawerDragEnded($event, widgetIndex, widget.type)">
+            
+            <i class="{{widget.icon}} animate__animated animate__fadeIn animate__faster"></i>
+            
+            <label class="animate__animated animate__fadeIn animate__faster">
+                <span *ngIf="widget.type == widgetTypes.NOTE">Note</span>
+                <span *ngIf="widget.type == widgetTypes.COLUMN">Column</span>
+            </label>
+
+            <!-- WIDGET TO PREVIEW -->
+            <widget-container *ngIf="widget.type == widgetTypes.NOTE"
+                class="wid-drawer-preview animate__animated animate__fadeIn animate__faster" 
+                [widget]="widget"></widget-container>
+
+            <widget-column *ngIf="widget.type == widgetTypes.COLUMN"
+                class="wid-drawer-preview animate__animated animate__fadeIn animate__faster" 
+                [widget]="widget"></widget-column>
         </div>
     </div>
-
-
 </div>
 
-<div class="wid-desktop"
-    cdkDropList
-    #widgetDesktop="cdkDropList"
-    [cdkDropListData]="widgetsOnDesktop"
-    (cdkDropListDropped)="copyFromList($event)">
+<div class="wid-desktop">
 
-    <widget-container 
-        *ngFor="let widget of widgetsOnDesktop; let widgetIndex = index;" 
-        cdkDrag
-        [widgetIndex]="widgetIndex"
-        [widget]="widget"
-        [cdkDragData]="widget"
-        [ngStyle]="{
-            'transform': 'translate3d('+widget.dragPosition.x+'px,'+widget.dragPosition.y+'px, 0)'
-        }"
-        (cdkDragEnded)="dragEnded($event, widgetIndex)"
-        cdkDragBoundary=".wid-desktop"></widget-container> 
-    </div>
--->
+    <ng-container *ngFor="let widget of widgetsOnDesktop; let widgetIndex = index;">
+
+        <widget-container 
+            *ngIf="widget.type == widgetTypes.NOTE"
+            cdkDrag
+            [widgetIndex]="widgetIndex"
+            [widget]="widget"
+            [cdkDragData]="widget"
+            [style.transform]="widget.dragTranslation"
+            (cdkDragStarted)="deskDragStarted($event, widgetIndex)"
+            (cdkDragReleased)="deskDragReleased($event, widgetIndex)"
+            (cdkDragEnded)="deskDragEnded($event, widgetIndex)"
+            cdkDragBoundary=".wid-desktop"></widget-container> 
+        
+        <widget-column *ngIf="widget.type == widgetTypes.COLUMN"
+            cdkDrag
+            [widgetIndex]="widgetIndex"
+            [widget]="widget"
+            [cdkDragData]="widget"
+            [style.transform]="widget.dragTranslation"
+            (cdkDragStarted)="deskDragStarted($event, widgetIndex)"
+            (cdkDragReleased)="deskDragReleased($event, widgetIndex)"
+            (cdkDragEnded)="deskDragEnded($event, widgetIndex)"
+            cdkDragBoundary=".wid-desktop"></widget-column> 
+    </ng-container>
+</div>

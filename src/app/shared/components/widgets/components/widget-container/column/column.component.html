@@ -1,1 +1,19 @@
-column
+<div class="column-wrapper">
+    
+    <div class="column-title" 
+        placeholder="This Column title"
+        [(ngModel)]="widget.title" contenteditable="true" >{{widget.title}}</div>
+
+    <div class="column-dropzone">
+        <div cdkDropList
+            [cdkDropListData]="widget.widgets"
+            (cdkDropListDropped)="dropOnColumn($event)"
+            class="column-content">
+            
+            <widget-container *ngFor="let innerWidget of widget.widgets; let widgetIndex = index;"
+                class="wid-drawer-preview animate__animated animate__fadeIn animate__faster" 
+                [widget]="innerWidget"></widget-container>
+        </div>
+    </div>
+
+</div>

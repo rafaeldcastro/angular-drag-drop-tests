@@ -1,33 +1,42 @@
-import { Dragable } from './dragable.model';
+import { Dragable } from "./dragable.model";
 
-export class Widget extends Dragable{
+export class Widget extends Dragable {
+  type: WidgetType;
 
-    type: WidgetType;
+  id;
+  index;
+  icon;
+  color;
+  title;
+  content;
+  widgets: Widget[];
 
-    id;
-    index;
-    icon;
-    color;
-    title;
-    content;
-    
-    constructor(data: Object = {}) {
-        super();
-        this.set(data);
-    }
+  constructor(data: Object = {}) {
+    super();
+    this.set(data);
+  }
 
-    static getNewNote(){
-        return new Widget({
-            type: WidgetType.NOTE
-        });
-    }
+  static getNewNote() {
+    return new Widget({
+      type: WidgetType.NOTE,
+      icon: "bi-card-text"
+    });
+  }
+
+  static getNewColumn() {
+    return new Widget({
+      type: WidgetType.COLUMN,
+      icon: "bi-distribute-horizontal",
+      title: "New Column"
+    });
+  }
 }
 
 export enum WidgetType {
-    NOTE = 1,
-    LINK = 2,
-    COLUMN = 3,
-    IMAGE = 4,
-    LINES = 5,
-    CHECK_LIST = 6
+  NOTE = 1,
+  LINK = 2,
+  COLUMN = 3,
+  IMAGE = 4,
+  LINES = 5,
+  CHECK_LIST = 6
 }

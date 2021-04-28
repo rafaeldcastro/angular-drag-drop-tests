@@ -1,0 +1,38 @@
+:host {
+  background: #fff;
+  display: flex;
+  height: auto;
+  padding: .5rem .5rem;
+  position: relative;
+  width: 280px;
+}
+
+.column-wrapper {
+  width: 100%;
+
+  .column-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 10px 0 16px;
+    text-align: center;
+  }
+
+  .column-title[contenteditable="true"]:empty:before {
+    color: #999;
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+    pointer-events: none;
+  }
+
+  .column-dropzone {
+    background: #eee;
+    min-height: 80px;
+    width: 100%;
+  }
+
+  .column-content {
+    position: relative;
+    z-index: 2;
+  }
+}
+
